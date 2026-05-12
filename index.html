@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HighBase — Field Visit SOP</title>
+<style>
+  :root {
+    --navy:  #1F3864;
+    --teal:  #00707F;
+    --orange:#C55A11;
+    --red:   #C00000;
+    --green: #375623;
+    --grey:  #595959;
+    --blue2: #2E75B6;
+    --purple:#70308F;
+    --amber: #FFC000;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10.5pt;
+         color: #222; background: #f4f6f9; }
+  .page { max-width: 820px; margin: 0 auto; background: #fff;
+          padding: 0 0 40px; box-shadow: 0 2px 16px rgba(0,0,0,.12); }
+
+  /* ── COVER ── */
+  .cover { background: var(--navy); color: #fff; text-align: center;
+           padding: 36px 40px 28px; }
+  .cover .brand { font-size: 26pt; font-weight: 700; letter-spacing: 3px; }
+  .cover .sub   { font-size: 11pt; color: #BDD7EE; margin-top: 4px; }
+  .cover .title { font-size: 18pt; font-weight: 700; color: var(--amber);
+                  margin-top: 10px; }
+  .prepared { text-align: right; font-size: 9pt; color: var(--grey);
+              font-style: italic; padding: 6px 40px 0; border-bottom: 2px solid #D6DCE4;
+              margin-bottom: 0; }
+
+  /* ── SECTIONS ── */
+  .body-content { padding: 0 40px; }
+  h1 { font-size: 14pt; font-weight: 700; color: var(--navy);
+       border-bottom: 2.5px solid var(--navy); padding-bottom: 4px;
+       margin: 28px 0 10px; }
+  h2 { font-size: 11pt; font-weight: 700; color: var(--teal);
+       margin: 16px 0 6px; }
+  p  { margin-bottom: 8px; line-height: 1.55; }
+  ul { margin: 4px 0 10px 18px; }
+  li { margin-bottom: 4px; line-height: 1.5; }
+  b  { color: var(--navy); }
+
+  /* ── CALLOUT ── */
+  .callout { border-left: 5px solid; border-radius: 4px; padding: 10px 14px;
+             margin: 12px 0; font-size: 10pt; }
+  .callout .lbl { font-weight: 700; margin-bottom: 4px; font-size: 10pt; }
+  .callout-blue   { background: #E7F0FB; border-color: var(--navy); }
+  .callout-blue   .lbl { color: var(--navy); }
+  .callout-amber  { background: #FFF2CC; border-color: var(--amber); }
+  .callout-amber  .lbl { color: var(--orange); }
+  .callout-teal   { background: #E0F4F6; border-color: var(--teal); }
+  .callout-teal   .lbl { color: var(--teal); }
+
+  /* ── TABLE ── */
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 16px;
+          font-size: 10pt; }
+  th { background: var(--navy); color: #fff; padding: 7px 10px;
+       font-size: 10pt; text-align: left; }
+  td { padding: 6px 10px; border: 1px solid #D6DCE4; vertical-align: top;
+       line-height: 1.5; }
+  tr:nth-child(even) td { background: #F2F6FC; }
+
+  /* ── PIPELINE ROW ── */
+  .pipe-row { display: flex; align-items: stretch; margin: 12px 0 18px;
+              gap: 0; flex-wrap: nowrap; }
+  .pipe-step { flex: 1; text-align: center; padding: 9px 6px 10px;
+               color: #fff; border-radius: 4px; }
+  .pipe-step .pt { font-weight: 700; font-size: 9.5pt; }
+  .pipe-step .ps { font-size: 7.5pt; color: #DDE8FF; margin-top: 3px;
+                   white-space: pre-line; }
+  .pipe-arrow { display: flex; align-items: center; padding: 0 4px;
+                color: var(--grey); font-size: 13pt; }
+
+  /* ── PIPELINE VERTICAL ── */
+  .pipe-vert { margin: 10px 0 16px; }
+  .pv-row { display: flex; align-items: stretch; margin-bottom: 0; }
+  .pv-num { width: 38px; min-width: 38px; display: flex; align-items: center;
+            justify-content: center; font-weight: 700; font-size: 12pt;
+            color: #fff; border-radius: 4px 0 0 4px; }
+  .pv-box { flex: 1; padding: 7px 12px 9px; border: 1px solid #CCC;
+            border-radius: 0 4px 4px 0; }
+  .pv-box .pt { font-weight: 700; font-size: 10.5pt; }
+  .pv-box .ps { font-size: 9.5pt; color: #404040; font-style: italic;
+                margin-top: 3px; }
+  .pv-connector { width: 38px; display: flex; align-items: center;
+                  justify-content: center; font-size: 12pt; color: var(--grey);
+                  padding: 1px 0; }
+  .pv-connector-space { flex: 1; }
+
+  /* ── IMAGE SPEC ── */
+  .img-hdr { color: #fff; font-weight: 700; font-size: 11pt;
+             padding: 8px 14px; border-radius: 4px 4px 0 0; margin-top: 14px; }
+  .img-desc { font-size: 9.5pt; color: var(--grey); font-style: italic;
+              margin: 4px 0 6px; }
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+             margin-bottom: 6px; }
+  .do-col, .dont-col { padding: 0; }
+  .do-col th { background: #375623; }
+  .dont-col th { background: #C00000; }
+  .do-col td  { background: #F0F7ED; border: 1px solid #C6DFB3; }
+  .dont-col td { background: #FEF0EE; border: 1px solid #F4CCCA; }
+
+  /* ── PAGE BREAK ── */
+  .page-break { border: none; border-top: 2px dashed #D6DCE4;
+                margin: 32px 0 0; }
+  @media print {
+    body { background: #fff; }
+    .page { box-shadow: none; }
+    .page-break { page-break-before: always; border: none; margin: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="brand">HIGHBASE</div>
+  <div class="sub">Standard Operating Procedure (SOP)</div>
+  <div class="title">Field Visit Data Entry &amp; Image Capture</div>
+</div>
+<div class="prepared">Prepared by: Data Team, HighBase &nbsp;·&nbsp; May 2026</div>
+
+<div class="body-content">
+
+<!-- ═══ SECTION 1 ═══ -->
+<h1>1. Cross-Team Communication Protocol</h1>
+<div class="callout callout-blue">
+  <div class="lbl">⭐ Why This Section Comes First</div>
+  Most data quality issues trace back to a communication gap between teams — not to mistakes in the field.
+</div>
+
+<h2>1.1 Who Is Involved</h2>
+<table>
+  <tr><th style="width:28%">Stakeholder</th><th>Responsibilities</th></tr>
+  <tr><td><b>Sales Team</b></td><td>
+    • Communicates with stakeholders to take the requirements<br>
+    • Gathers their requirements: what data they need and why<br>
+    • Passes those requirements to the Data team<br>
+    • Does <b>not</b> conduct field visits
+  </td></tr>
+  <tr><td><b>Data Team</b></td><td>
+    • Receives requirements from Sales<br>
+    • Defines the exact data fields needed for analysis<br>
+    • Writes the Feature Requirements Document (FRD)<br>
+    • Hands the FRD to IT · Validates data quality after collection
+  </td></tr>
+  <tr><td><b>IT / Dev Team</b></td><td>
+    • Receives the FRD from the Data team<br>
+    • Builds the data entry form exactly as specified<br>
+    • Runs testing (UAT with the Data team)<br>
+    • Deploys the form when sign-off is given
+  </td></tr>
+  <tr><td><b>Freelance Field Agency</b></td><td>
+    • Receives the deployed form from the system<br>
+    • Conducts physical visits to the assigned places<br>
+    • Fills all mandatory fields and captures required images<br>
+    • Submits one record per visit — no exceptions
+  </td></tr>
+</table>
+
+<h2>1.2 Team Communication Pipeline</h2>
+<p>Every campaign or form update must follow this order. No step can be skipped.</p>
+<div class="pipe-row">
+  <div class="pipe-step" style="background:#1F3864"><div class="pt">Sales</div><div class="ps">Gets requirements
+from stakeholders</div></div>
+  <div class="pipe-arrow">▶</div>
+  <div class="pipe-step" style="background:#2E75B6"><div class="pt">Sales → Data</div><div class="ps">Briefs the
+Data team</div></div>
+  <div class="pipe-arrow">▶</div>
+  <div class="pipe-step" style="background:#007F7F"><div class="pt">Data → IT</div><div class="ps">Submits the FRD</div></div>
+  <div class="pipe-arrow">▶</div>
+  <div class="pipe-step" style="background:#375623"><div class="pt">IT</div><div class="ps">Builds &amp; tests
+the form</div></div>
+  <div class="pipe-arrow">▶</div>
+  <div class="pipe-step" style="background:#007F7F"><div class="pt">Data</div><div class="ps">UAT sign-off</div></div>
+  <div class="pipe-arrow">▶</div>
+  <div class="pipe-step" style="background:#C05018"><div class="pt">Deploy</div><div class="ps">Form goes live</div></div>
+</div>
+
+<p>Step-by-step breakdown:</p>
+<div class="pipe-vert">
+  <div class="pv-row">
+    <div class="pv-num" style="background:#1F3864">1</div>
+    <div class="pv-box" style="background:#EAF6FF">
+      <div class="pt">Sales Team: Gather Requirements from Stakeholders</div>
+      <div class="ps">Sales meets with the stakeholder. They collect: what data is needed and any special requirements.</div>
+    </div>
+  </div>
+  <div class="pv-row"><div class="pv-connector">▼</div><div class="pv-connector-space"></div></div>
+  <div class="pv-row">
+    <div class="pv-num" style="background:#2E75B6">2</div>
+    <div class="pv-box" style="background:#E6F4EA">
+      <div class="pt">Sales Team → Data Team: Requirements Handoff</div>
+      <div class="ps">Sales writes up what the stakeholder asked for and passes it to the Data team. Includes: required data points, timeline, and any known constraints.</div>
+    </div>
+  </div>
+  <div class="pv-row"><div class="pv-connector">▼</div><div class="pv-connector-space"></div></div>
+  <div class="pv-row">
+    <div class="pv-num" style="background:#007F7F">3</div>
+    <div class="pv-box" style="background:#FFF8E7">
+      <div class="pt">Data Team: Write the Feature Requirements Document (FRD)</div>
+      <div class="ps">Data translates the stakeholder requirements into technical field definitions: field names, data types, accepted values (dropdown options), mandatory vs. optional, and image requirements.</div>
+    </div>
+  </div>
+  <div class="pv-row"><div class="pv-connector">▼</div><div class="pv-connector-space"></div></div>
+  <div class="pv-row">
+    <div class="pv-num" style="background:#375623">4</div>
+    <div class="pv-box" style="background:#E6F4EA">
+      <div class="pt">Data Team → IT Team: Submit the FRD</div>
+      <div class="ps">The FRD is handed to IT before any development starts. All questions between Data and IT must be resolved before work begins.</div>
+    </div>
+  </div>
+  <div class="pv-row"><div class="pv-connector">▼</div><div class="pv-connector-space"></div></div>
+  <div class="pv-row">
+    <div class="pv-num" style="background:#5B2D8E">5</div>
+    <div class="pv-box" style="background:#F3E8FF">
+      <div class="pt">IT Team: Build the Form</div>
+      <div class="ps">IT implements the form exactly as specified. Any limitation that prevents a field from being built as described must be flagged to Data immediately — not after the form is deployed.</div>
+    </div>
+  </div>
+  <div class="pv-row"><div class="pv-connector">▼</div><div class="pv-connector-space"></div></div>
+  <div class="pv-row">
+    <div class="pv-num" style="background:#375623">6</div>
+    <div class="pv-box" style="background:#E6F4EA">
+      <div class="pt">Data Team: User Acceptance Test (UAT)</div>
+      <div class="ps">Data runs a test with at least one team member simulating a real visit. Every field and image type is verified before sign-off.</div>
+    </div>
+  </div>
+  <div class="pv-row"><div class="pv-connector">▼</div><div class="pv-connector-space"></div></div>
+  <div class="pv-row">
+    <div class="pv-num" style="background:#C05018">7</div>
+    <div class="pv-box" style="background:#FFF8E7">
+      <div class="pt">Deploy: Form Goes Live</div>
+      <div class="ps">Only after Data team sign-off. The Freelance Field Agency is briefed on any changes from the previous version.</div>
+    </div>
+  </div>
+</div>
+
+<h2>1.3 What Sales Must Pass to the Data Team</h2>
+<p>Minimum required from each stakeholder meeting:</p>
+<ul>
+  <li><b>Data points requested by the stakeholder</b> — exactly what they want to capture.</li>
+  <li><b>Any constraints mentioned by the stakeholder</b> (e.g., some info may not be available on-site).</li>
+  <li><b>Changes vs. the previous campaign</b> (new requirements, removed requirements, etc.).</li>
+</ul>
+<div class="callout callout-amber">
+  <div class="lbl">⚠ RULE — No Direct Sales-to-IT Requests</div>
+  Sales must not contact IT directly to request form changes. All changes go: Sales → Data team (FRD update) → IT → UAT → Deploy.
+</div>
+
+<hr class="page-break">
+
+<h2>1.4 Field Agent Visit Pipeline</h2>
+<p>For the freelance field agent — follow this pipeline on every visit.</p>
+<div class="pipe-row">
+  <div class="pipe-step" style="background:#1F3864"><div class="pt">Check Assignment</div><div class="ps">Review list</div></div>
+  <div class="pipe-arrow">▶</div>
+  <div class="pipe-step" style="background:#2E75B6"><div class="pt">Arrive at Place</div><div class="ps">Locate the place</div></div>
+  <div class="pipe-arrow">▶</div>
+  <div class="pipe-step" style="background:#C05018"><div class="pt">Identify the Place</div><div class="ps">Match or exception</div></div>
+  <div class="pipe-arrow">▶</div>
+  <div class="pipe-step" style="background:#375623"><div class="pt">Fill the Form</div><div class="ps">All mandatory fields</div></div>
+  <div class="pipe-arrow">▶</div>
+  <div class="pipe-step" style="background:#007F7F"><div class="pt">Capture Images</div><div class="ps">Follow spec</div></div>
+  <div class="pipe-arrow">▶</div>
+  <div class="pipe-step" style="background:#70308F"><div class="pt">Submit Record</div><div class="ps">One record only</div></div>
+</div>
+
+<div class="pipe-vert">
+  <div class="pv-row">
+    <div class="pv-num" style="background:#1F3864">1</div>
+    <div class="pv-box" style="background:#EAF6FF">
+      <div class="pt">Check Assignment</div>
+      <div class="ps">Log in. Review today's place list. If any place already has a record for this visit period — do NOT create a new one. Contact your agency supervisor.</div>
+    </div>
+  </div>
+  <div class="pv-row"><div class="pv-connector">▼</div><div class="pv-connector-space"></div></div>
+  <div class="pv-row">
+    <div class="pv-num" style="background:#2E75B6">2</div>
+    <div class="pv-box" style="background:#E6F4EA">
+      <div class="pt">Arrive at the Place</div>
+      <div class="ps">Go to the assigned address. If the place is not found or the situation has changed, go to Section 4 before doing anything else.</div>
+    </div>
+  </div>
+  <div class="pv-row"><div class="pv-connector">▼</div><div class="pv-connector-space"></div></div>
+  <div class="pv-row">
+    <div class="pv-num" style="background:#C05018">3</div>
+    <div class="pv-box" style="background:#FFF8E7">
+      <div class="pt">Identify the Place</div>
+      <div class="ps">Check whether the place matches the system record. Use the decision tree in Section 4. This step determines whether to do full data entry or log an exception.</div>
+    </div>
+  </div>
+  <div class="pv-row"><div class="pv-connector">▼</div><div class="pv-connector-space"></div></div>
+  <div class="pv-row">
+    <div class="pv-num" style="background:#375623">4</div>
+    <div class="pv-box" style="background:#E6F4EA">
+      <div class="pt">Fill the Form</div>
+      <div class="ps">Complete all mandatory fields — see Section 5. Do not leave mandatory fields blank. Do not guess data that is not visible on-site.</div>
+    </div>
+  </div>
+  <div class="pv-row"><div class="pv-connector">▼</div><div class="pv-connector-space"></div></div>
+  <div class="pv-row">
+    <div class="pv-num" style="background:#007F7F">5</div>
+    <div class="pv-box" style="background:#EAF6FF">
+      <div class="pt">Capture Images</div>
+      <div class="ps">Take all required images — see Section 6. Check each image before leaving. Do not submit and return later.</div>
+    </div>
+  </div>
+  <div class="pv-row"><div class="pv-connector">▼</div><div class="pv-connector-space"></div></div>
+  <div class="pv-row">
+    <div class="pv-num" style="background:#70308F">6</div>
+    <div class="pv-box" style="background:#F3E8FF">
+      <div class="pt">Submit the Record</div>
+      <div class="ps">Submit once. One visit = one record. If you made a mistake, use the edit option in the system — do not submit again. If the system shows an error, contact your agency supervisor.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 2 ═══ -->
+<hr class="page-break">
+<h1>2. Purpose &amp; Scope</h1>
+<p>This SOP defines the mandatory procedures for collecting, recording, and submitting data during field visits.</p>
+<p>It applies to every team involved — from Sales (who gathers stakeholder requirements) to IT (who builds the system) to the freelance agency (who conducts visits).</p>
+<p style="color:var(--red);font-weight:700">Non-compliant records will be rejected and must be re-submitted.</p>
+<table>
+  <tr><th>Stakeholder</th><th>Compliance</th><th>Primary Sections</th></tr>
+  <tr><td>Sales Team</td><td>Mandatory</td><td>Sections 1, 2, 9</td></tr>
+  <tr><td>Data Team</td><td>Mandatory</td><td>All sections</td></tr>
+  <tr><td>IT / Dev Team</td><td>Mandatory</td><td>Sections 1, 2, 7, 9</td></tr>
+  <tr><td>Freelance Field Agency</td><td>Mandatory</td><td>Sections 2, 3, 4, 5, 6, 7, 8, 9</td></tr>
+</table>
+
+<!-- ═══ SECTION 3 ═══ -->
+<h1>3. Pre-Visit Preparation — For the Field Agent</h1>
+<p>Complete every item below before leaving for the outlet.</p>
+<table>
+  <tr><th style="width:32%">Checklist Item</th><th>What to Do</th></tr>
+  <tr><td><b>Log in to the system</b></td><td>Confirm your assigned place list for today is visible and up to date.</td></tr>
+  <tr><td><b>Check for existing records</b></td><td>For each place, verify no record already exists for this visit period using the CR number. If a record exists — do NOT create a new one update the previous record.</td></tr>
+  <tr><td><b>Know the place type</b></td><td>Each place is a type of location: restaurant, café, cold store, supermarket, cafeteria, bakery, etc. You will select this from a dropdown — familiarise yourself with the options before visiting.</td></tr>
+  <tr><td><b>Device and camera check</b></td><td>Device charged · Camera lens clean · Internet access confirmed (or offline form ready).</td></tr>
+  <tr><td><b>Know the exception vocabulary</b></td><td>Review Section 4. You must use standard note tags for exceptions. You may not invent your own.</td></tr>
+</table>
+<div class="callout callout-teal">
+  <div class="lbl">📌 DEFINITION — What Is an Outlet?</div>
+  "Outlet" = the type of place you are visiting. Examples: Restaurant · Café · Supermarket · Cold Store · Cafeteria · Bakery · Grill / Shawarma · Food Truck · Fruits &amp; Vegetables Shop. You select it from a fixed dropdown — never type it as free text.
+</div>
+
+<!-- ═══ SECTION 4 ═══ -->
+<h1>4. Place Identification — Decision Tree</h1>
+<p>On arrival, follow this decision tree. One correct action per situation. Do not improvise.</p>
+
+<h2>Step 1 — Is the Place physically present?</h2>
+<table>
+  <tr><th style="width:38%">Outcome</th><th>Action</th></tr>
+  <tr><td>✅ YES — Place found</td><td>Proceed to Step 2.</td></tr>
+  <tr><td>❌ NO — Not found</td><td>Select Note: <b>"Place Not Found"</b><br>Leave CR Number and Place Name blank.<br>Submit and move to the next Place.</td></tr>
+</table>
+
+<h2>Step 2 — Does it match the system record?</h2>
+<table>
+  <tr><th style="width:38%">Situation</th><th>Correct Action</th></tr>
+  <tr><td>✅ Matches</td><td>Proceed to Section 5.</td></tr>
+  <tr><td>⚠ Name has changed</td><td>Note: <b>"Name Changed"</b><br>Fill CR if visible. Do NOT change the Place Name field.</td></tr>
+  <tr><td>⚠ Temporarily closed</td><td>Note: <b>"Temporarily Closed"</b><br>Fill CR and name if visible. Skip all other fields.</td></tr>
+  <tr><td>⚠ Permanently closed / demolished</td><td>Note: <b>"Permanently Closed"</b><br>Fill CR and name if still visible. Skip all other fields.</td></tr>
+  <tr><td>⚠ CR number not visible</td><td>Leave CR blank. Do NOT guess.<br>Capture a storefront image and notify your agency supervisor.</td></tr>
+</table>
+<div class="callout callout-teal">
+  <div class="lbl">📌 RULE — Standard Notes Only</div>
+  Standard note tags: <b>"Place Not Found"</b> · <b>"Name Changed"</b> · <b>"Temporarily Closed"</b> · <b>"Permanently Closed"</b><br>
+  Select from the dropdown. Free-text may only be added after the standard tag is chosen.
+</div>
+
+<!-- ═══ SECTION 5 ═══ -->
+<hr class="page-break">
+<h1>5. Data Entry Field Rules</h1>
+<p>Only fill these fields after completing Section 4 with a positive outcome. All MANDATORY fields must be completed before submission.</p>
+<table>
+  <tr><th style="width:20%">Field</th><th style="width:15%">Required</th><th>Rules</th></tr>
+  <tr><td><b>CR Number</b></td><td style="color:var(--red);font-weight:700">MANDATORY</td><td>
+    Exactly as shown on the registration plate or certificate.<br>
+    • Format: XXXXXX-N &nbsp;(e.g., 30432-1)<br>
+    • No spaces before or after the dash<br>
+    • No leading zeros in the suffix: use -1 not -01<br>
+    • If not visible — leave blank. Do not guess.
+  </td></tr>
+  <tr><td><b>Place Name</b></td><td style="color:var(--red);font-weight:700">MANDATORY</td><td>
+    Copy EXACTLY as shown on the registration or official signage.<br>
+    • Do not correct spelling, capitalisation, or punctuation<br>
+    • Do not translate between Arabic and English<br>
+    • The Data team handles all standardisation
+  </td></tr>
+  <tr><td><b>Outlet Type</b></td><td style="color:var(--red);font-weight:700">MANDATORY</td><td>
+    Select from the system dropdown only — never type free text.<br>
+    • Examples: Restaurant · Café · Cold Store · Supermarket · Cafeteria · Bakery · Grill/Shawarma · Sandwich Shop · Food Truck · Fruits &amp; Vegetables<br>
+    • If genuinely unclear → select "Other" and add a note<br>
+    • Do not leave blank
+  </td></tr>
+  <tr><td><b>Location / Area</b></td><td style="color:var(--red);font-weight:700">MANDATORY</td><td>
+    Select from the predefined area list.<br>
+    • If the area is not listed → select the nearest option and notify your agency supervisor.
+  </td></tr>
+  <tr><td><b>Additional Notes</b></td><td style="color:var(--grey)">OPTIONAL</td><td>
+    Use only for context beyond the standard note tags.<br>
+    • One short sentence maximum<br>
+    • Examples: "Second floor", "Shared premises", "New owner since last visit"
+  </td></tr>
+</table>
+
+<!-- ═══ SECTION 6 ═══ -->
+<h1>6. Image Capture Guidelines</h1>
+<p>Every image must be clear and complete. Blurry or incorrectly framed images will be flagged — fixing them requires returning to the place.</p>
+
+<!-- Image 1 -->
+<div class="img-hdr" style="background:#1F3864">Image 1: Registration Image</div>
+<p class="img-desc">Full registration certificate or plate — all text (especially CR number and trade name) must be legible.</p>
+<div class="do-dont">
+  <table class="do-col"><tr><th>✅ DO</th></tr>
+    <tr><td>Full document in frame — no edges cut off</td></tr>
+    <tr><td>All text legible — hold steady, no blur</td></tr>
+    <tr><td>Straight-on angle</td></tr>
+  </table>
+  <table class="dont-col"><tr><th>❌ DON'T</th></tr>
+    <tr><td>CR number cut off at the edge</td></tr>
+    <tr><td>Blurry or overexposed</td></tr>
+    <tr><td>Photo of a photocopy</td></tr>
+  </table>
+</div>
+
+<!-- Image 2 -->
+<div class="img-hdr" style="background:#2E75B6">Image 2: Exterior / Interior Image</div>
+<p class="img-desc">Wide-angle shot showing the full place in one frame.</p>
+<div class="do-dont">
+  <table class="do-col"><tr><th>✅ DO</th></tr>
+    <tr><td>Stand back far enough to include the entire space</td></tr>
+    <tr><td>Exterior: entrance and signage visible</td></tr>
+    <tr><td>Interior: full room layout in one shot</td></tr>
+  </table>
+  <table class="dont-col"><tr><th>❌ DON'T</th></tr>
+    <tr><td>Close-up of a single item</td></tr>
+    <tr><td>Half the place cut off</td></tr>
+    <tr><td>Dark or heavily shadowed image</td></tr>
+  </table>
+</div>
+
+<!-- Image 3 -->
+<div class="img-hdr" style="background:#375623">Image 3: Product / Contents Image</div>
+<p class="img-desc">Complete frontal view of the items to document. All items visible in one image.</p>
+<div class="do-dont">
+  <table class="do-col"><tr><th>✅ DO</th></tr>
+    <tr><td>Full frontal — all items visible</td></tr>
+    <tr><td>Door or cover fully open before shooting</td></tr>
+    <tr><td>Sufficient lighting to read labels</td></tr>
+  </table>
+  <table class="dont-col"><tr><th>❌ DON'T</th></tr>
+    <tr><td>Angle shot where only part shows</td></tr>
+    <tr><td>Door partially blocking the view</td></tr>
+    <tr><td>Shooting through glass without opening</td></tr>
+  </table>
+</div>
+
+<!-- Image 4 -->
+<div class="img-hdr" style="background:#C55A11">Image 4: Barcode / Label Image</div>
+<p class="img-desc">Barcode or product label — all printed information must be readable.</p>
+<div class="do-dont">
+  <table class="do-col"><tr><th>✅ DO</th></tr>
+    <tr><td>Full barcode and surrounding text in frame</td></tr>
+    <tr><td>Camera held steady — no motion blur</td></tr>
+    <tr><td>Close enough to read text without zooming</td></tr>
+  </table>
+  <table class="dont-col"><tr><th>❌ DON'T</th></tr>
+    <tr><td>Barcode partially cut off</td></tr>
+    <tr><td>Glare or reflection covering the barcode</td></tr>
+    <tr><td>Too far away to read text</td></tr>
+  </table>
+</div>
+
+<!-- ═══ SECTION 7 ═══ -->
+<hr class="page-break">
+<h1>7. Duplicate Visit Prevention</h1>
+<p>Each physical visit must produce exactly one record. The <b>CR number</b> is the unique identifier — the system uses it to detect duplicates.</p>
+<ul>
+  <li><b>Check before you fill.</b> Confirm no record already exists for this place's CR number in the current visit period.</li>
+  <li><b>One record per CR number per visit period.</b> If a record already exists, open and edit it — do not create a new one.</li>
+  <li style="color:var(--red)"><b>Never submit a second record to "correct" the first.</b> Use the edit function in the system to update the existing record.</li>
+  <li><b>IT must enforce this in the system.</b> The form must detect existing records by CR number and offer an edit option — not allow a new submission.</li>
+</ul>
+
+
+<!-- ═══ SECTION 8 ═══ -->
+<h1>8. Common Errors &amp; How to Avoid Them</h1>
+<table>
+  <tr><th style="width:32%">Error</th><th>Why It Matters &amp; Correct Action</th></tr>
+  <tr><td>CR number with spaces</td><td>Enter 30432-1, not "30432 - 1". Spaces create unresolvable duplicates.</td></tr>
+  <tr><td>Leading zeros in CR suffix</td><td>Enter 30432-1, not "30432-01". Leading zeros make the same place appear twice.</td></tr>
+  <tr><td>Guessing a CR number</td><td>If not visible, leave blank. An invented CR permanently corrupts the record.</td></tr>
+  <tr><td>Modifying the place name</td><td>Copy exactly as seen. Changed names break matching across visit periods.</td></tr>
+  <tr><td>Free-text outlet type</td><td>Always use the dropdown. Free-text values cannot be aggregated in analysis.</td></tr>
+  <tr><td>Submitting a duplicate record</td><td>Check by CR number first. If a record exists, edit it — do not create a new one.</td></tr>
+  <tr><td>Partial or blurry images</td><td>Check before leaving. Rejected images require a return visit.</td></tr>
+  <tr><td>Sales contacting IT directly</td><td>All form changes must go through the Data team FRD process.</td></tr>
+</table>
+
+<p style="font-size:9pt;color:var(--grey);font-style:italic">Next review: November 2026 &nbsp;·&nbsp; Owner: Data Team, HighBase</p>
+
+</div><!-- body-content -->
+</div><!-- page -->
+</body>
+</html>
